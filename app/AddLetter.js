@@ -81,8 +81,8 @@ export default class AddLetter extends Component {
     return (
       <Container>
         <ModalHeader title={'Add Letter'} back={this.goBack}/>
-        <Content style={{paddingLeft: 10, paddingRight: 10, paddingBottom: 20, flexGrow:1, flex:1}}>
-          <View>
+        <Content>
+          <View style={{paddingLeft: 10, paddingRight: 10}}>
             <View>
               <Text style={styles.label}>
                 Serial No.
