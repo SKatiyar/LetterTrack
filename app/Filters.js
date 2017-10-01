@@ -100,7 +100,7 @@ export default class Filters extends Component {
       Toast.show({
         text: 'Default filters applied!',
         position: 'bottom',
-        duration: 2000,
+        duration: 3000,
         buttonText: 'Ok'
       });
       this.props.navigation.goBack();
