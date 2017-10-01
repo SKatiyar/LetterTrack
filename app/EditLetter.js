@@ -59,7 +59,7 @@ export default class EditLetter extends Component {
     }
   };
 
-  save() {
+  update() {
     let data = {};
 
     this.state.serialNo && (data.serialNo = this.state.serialNo);
