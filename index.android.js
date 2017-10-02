@@ -1,5 +1,6 @@
 'use strict';
 
+// Fill for squeljs error
 import 'core-js';
 
 import React from 'react';
