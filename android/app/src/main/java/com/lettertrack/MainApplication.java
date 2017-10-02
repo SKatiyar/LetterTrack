@@ -2,6 +2,7 @@ package com.lettertrack;
 
 import android.app.Application;
 
+import org.pgsqlite.SQLitePluginPackage;
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -24,6 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SQLitePluginPackage(),
             new VectorIconsPackage()
       );
     }
