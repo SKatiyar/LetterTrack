@@ -12,8 +12,7 @@ import {
   Container,
   Icon,
   Content,
-  Footer,
-  FooterTab
+  Toast,
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import CheckBox from 'react-native-check-box';
@@ -36,11 +35,9 @@ export default class EditLetter extends Component {
       return ele.letterId === letterId;
     });
 
-    this.done = this.done.bind(this);
     this.goBack = this.goBack.bind(this);
     this.update = this.update.bind(this);
-
-    console.log(letter);
+    this.remove = this.remove.bind(this);
 
     this.state = {
       letterId: (letter && letter.letterId) ? letter.letterId : '',
@@ -62,7 +59,7 @@ export default class EditLetter extends Component {
   date(val) {
     if (typeof val === 'string') {
       const date = val.split('/').map(function(i) { return i.trim() });
-      return new Date(parseInt(date[2]), parseInt(date[1] - 1), parseInt(date[0]));
+      return (new Date(parseInt(date[2]), parseInt(date[1] - 1), parseInt(date[0]))).getTime();
     } else if (typeof val === 'number') {
       const nd = new Date(val);
       return '' + nd.getDate() + ' / ' + (nd.getMonth() + 1) + ' / ' + nd.getFullYear();
@@ -71,14 +68,23 @@ export default class EditLetter extends Component {
     }
   };
 
-  done() {
-    this.props.screenProps.actions.onLetterDone(this.state.letterId).then(function() {
+  remove() {
+    this.props.screenProps.actions.onLetterDelete(this.state.letterId).then(function() {
+      Toast.show({
+        text: 'Letter deleted!',
+        position: 'bottom',
+        duration: 3000,
+        buttonText: 'Ok'
+      });
+      this.props.navigation.goBack();
     }.bind(this)).catch(function(err) {
+      Toast.show({
+        text: 'Error happened!',
+        position: 'bottom',
+        buttonText: 'Dismiss'
+      });
       console.log(err);
     }.bind(this));
-  };
-
-  delete() {
   };
 
   update() {
@@ -87,15 +93,27 @@ export default class EditLetter extends Component {
     this.state.serialNo && (data.serialNo = this.state.serialNo);
     this.state.counterNo && (data.counterNo = this.state.counterNo);
     this.state.sentTo && (data.sentTo = this.state.sentTo);
-    this.state.sentOn && (data.sentOn = this.state.sentOn.getTime());
+    this.state.sentOn && (data.sentOn = this.state.sentOn);
     this.state.subject && (data.subject = this.state.subject);
-    this.state.replyBy && (data.replyBy = this.state.replyBy.getTime());
+    this.state.replyBy && (data.replyBy = this.state.replyBy);
+    this.state.state && (data.state = this.state.state);
 
     data.important = this.state.important ? 1 : 0;
 
     this.props.screenProps.actions.onLetterUpdate(this.state.letterId, data).then(function() {
+      Toast.show({
+        text: 'Letter updated!',
+        position: 'bottom',
+        duration: 3000,
+        buttonText: 'Ok'
+      });
       this.props.navigation.goBack();
     }.bind(this)).catch(function(err) {
+      Toast.show({
+        text: 'Error happened!',
+        position: 'bottom',
+        buttonText: 'Dismiss'
+      });
       console.log(err);
     }.bind(this));
   };
@@ -144,19 +162,9 @@ export default class EditLetter extends Component {
                 style={styles.datePicker}
                 date={this.date(this.state.sentOn)}
                 customStyles={{
-                  dateTouchBody: {
-                    height: 22,
-                    marginTop: 5,
-                    padding: 0,
-                  },
-                  dateText: {
-                    fontSize: 15,
-                  },
-                  dateInput: {
-                    height: 22,
-                    alignItems: 'flex-start',
-                    borderWidth: 0
-                  }
+                  dateTouchBody: { height: 30, marginTop: 10, padding: 0 },
+                  dateText: { fontSize: 18 },
+                  dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
                 }}
                 mode='date'
                 format='DD / MM / YYYY'
@@ -171,19 +179,9 @@ export default class EditLetter extends Component {
                 style={styles.datePicker}
                 date={this.date(this.state.replyBy)}
                 customStyles={{
-                  dateTouchBody: {
-                    height: 22,
-                    marginTop: 5,
-                    padding: 0,
-                  },
-                  dateText: {
-                    fontSize: 15,
-                  },
-                  dateInput: {
-                    height: 22,
-                    alignItems: 'flex-start',
-                    borderWidth: 0
-                  }
+                  dateTouchBody: { height: 30, marginTop: 10, padding: 0 },
+                  dateText: { fontSize: 18 },
+                  dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
                 }}
                 mode='date'
                 format='DD / MM / YYYY'
@@ -206,21 +204,30 @@ export default class EditLetter extends Component {
                 style={styles.checkBox}
                 isChecked={this.state.important}
                 onClick={() => this.setState({important: !this.state.important})}/>
-              <Text style={styles.label}>Important</Text>
+              <Text style={styles.checkBoxlabel}
+                onPress={() => this.setState({important: !this.state.important})}>Important</Text>
+            </View>
+            <View style={styles.inputImp}>
+              <CheckBox
+                style={styles.checkBox}
+                isChecked={(this.state.state === 'closed')}
+                onClick={() => this.setState({state: (this.state.state === 'closed') ? 'pending' : 'closed'})}/>
+              <Text style={styles.checkBoxlabel}
+                onPress={() => this.setState({state: (this.state.state === 'closed') ? 'pending' : 'closed'})}>
+                Closed
+              </Text>
             </View>
           </View>
-          <Button light full
-            onPress={this.save}>
-            <Text>Delete</Text>
-          </Button>
-          <Button light full
-            onPress={this.save}>
-            <Text>Close</Text>
-          </Button>
-          <Button light full
-            onPress={this.save}>
-            <Text>Save</Text>
-          </Button>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5, marginTop: 20}}>
+            <Button style={styles.deleteButton}
+              onPress={this.remove}>
+              <Icon name="md-trash" style={styles.deleteLabel}/>
+            </Button>
+            <Button style={styles.saveButton}
+              onPress={this.update}>
+              <Text style={styles.saveLabel}>Save</Text>
+            </Button>
+          </View>
         </Content>
       </Container>
     );
@@ -228,32 +235,58 @@ export default class EditLetter extends Component {
 };
 
 const styles = StyleSheet.create({
+  deleteButton: {
+    backgroundColor: '#E74C3C',
+    flex: 1,
+    marginRight: 5,
+    marginLeft: 5,
+    justifyContent: 'center'
+  },
+  deleteLabel: {
+    color: '#FFFFFF'
+  },
+  saveButton: {
+    backgroundColor: '#27AE60',
+    flex: 2,
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  saveLabel: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#FFFFFF'
+  },
   label: {
-    fontSize: 16,
-    marginTop: 15,
+    fontSize: 20,
+    marginTop: 20,
   },
   textInput: {
-    fontSize: 15,
-    marginTop: 5,
-    height: 22,
+    fontSize: 18,
+    marginTop: 10,
+    height: 35,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
   multiTextInput: {
-    fontSize: 15,
+    fontSize: 18,
     marginTop: 5,
-    height: 44,
+    height: 64,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
   checkBox: {
-    marginTop: 13,
     marginRight: 5,
   },
+  checkBoxlabel: {
+    fontSize: 18,
+  },
   inputImp: {
-    flexWrap: 'wrap', 
-    alignItems: 'flex-start',
+    flex: 1,
     flexDirection:'row',
+    alignItems: 'flex-start',
+    marginTop: 20,
   },
   datePicker: {
     flex: 1,

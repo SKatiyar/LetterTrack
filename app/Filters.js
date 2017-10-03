@@ -6,11 +6,11 @@ import {
   TextInput,
   StyleSheet,
   View,
-  ScrollView,
 } from 'react-native';
 import {
   Button,
   Container,
+  Content,
   Toast,
 } from 'native-base';
 import {
@@ -20,7 +20,6 @@ import {
 } from 'react-native-simple-radio-button';
 import CheckBox from 'react-native-check-box';
 import DatePicker from 'react-native-datepicker';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import { ModalHeader } from './Headers';
 
@@ -160,7 +159,7 @@ export default class Filters extends Component {
     return (
       <Container style={{flex: 1}}>
         <ModalHeader title={'Filters'} back={this.goBack}/>
-        <ScrollView style={{flex: 1}} contentContainerStyle={styles.content}>
+        <Content style={{padding: 10, marginBottom: 10}}>
           <View style={styles.findWord}>
             <Text style={styles.label}>Find Word</Text>
             <TextInput
@@ -224,8 +223,8 @@ export default class Filters extends Component {
                 date={this.date((this.state.date.start ? this.state.date.start : Date.now()))}
                 customStyles={{
                   dateTouchBody: styles.dateTouchBody,
-                  dateText: { fontSize: 16 },
-                  dateInput: { height: 22, alignItems: 'center', borderWidth: 0 }
+                  dateText: { fontSize: 18 },
+                  dateInput: { height: 30, alignItems: 'center', borderWidth: 0 }
                 }}
                 mode='date'
                 format='DD / MM / YYYY'
@@ -245,8 +244,8 @@ export default class Filters extends Component {
                 date={this.date((this.state.date.end ? this.state.date.end : Date.now()))}
                 customStyles={{
                   dateTouchBody: styles.dateTouchBody,
-                  dateText: { fontSize: 16 },
-                  dateInput: { height: 22, alignItems: 'center', borderWidth: 0 }
+                  dateText: { fontSize: 18 },
+                  dateInput: { height: 30, alignItems: 'center', borderWidth: 0 }
                 }}
                 mode='date'
                 format='DD / MM / YYYY'
@@ -371,45 +370,61 @@ export default class Filters extends Component {
               </Text>
             </View>
           </View>
-          <View style={styles.applyButtonContainer}>
-            <Button light
-              style={styles.applyButton}
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5}}>
+            <Button style={styles.defaultsButton}
               onPress={this.defaults}>
-              <Text style={styles.applyLabel}>Defaults</Text>
+              <Text style={styles.defaultsLabel}>Defaults</Text>
             </Button>
-            <Button light
-              style={styles.applyButton}
+            <Button style={styles.applyButton}
               onPress={this.apply}>
               <Text style={styles.applyLabel}>Apply</Text>
             </Button>
           </View>
-        </ScrollView>
-        <KeyboardSpacer topSpacing={20}/>
+          <View style={styles.spacer} />
+        </Content>
       </Container>
     );
   };
 };
 
 const styles = StyleSheet.create({
-  content: {
-    padding:10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  defaultsButton: {
+    backgroundColor: '#95A5A6',
+    flex: 1,
+    marginRight: 5,
+    marginLeft: 5,
+    justifyContent: 'center'
+  },
+  defaultsLabel: {
+    fontSize: 18,
+    color: '#FFFFFF'
+  },
+  applyButton: {
+    backgroundColor: '#27AE60',
+    flex: 2,
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  applyLabel: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#FFFFFF'
   },
   textInput: {
-    fontSize: 16,
+    fontSize: 18,
     marginTop: 10,
-    height: 24,
+    height: 34,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
   label: {
-    fontSize: 16,
-    marginTop: 2,
+    fontSize: 20,
+    marginTop: 20,
   },
   checkboxLabel: {
-    fontSize: 16,
-    marginTop: 2,
+    fontSize: 18,
     marginLeft: 7,
   },
   inputImp: {
@@ -423,7 +438,7 @@ const styles = StyleSheet.create({
     flexGrow: 2,
   },
   findWord: {
-    height: 160
+    height: 180,
   },
   checkboxList: {
     flex: 1,
@@ -451,13 +466,13 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   radioButtonLabel: {
-    fontSize: 16,
+    fontSize: 18,
   },
   radioButton: {
     borderColor: '#000',
   },
   findDate: {
-    height: 160,
+    height: 180,
   },
   sortBy: {
     height: 120,
@@ -471,24 +486,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  applyButton: {
-    width: 120,
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  applyLabel: {
-    flex: 1,
-    fontSize: 16,
-    padding: 10,
-    textAlign: 'center',
-  },
   sortOrderButton: {
     flex: 1,
     flexDirection: 'row',
     marginTop: 15,
   },
   sortOrder: {
-    height: 60,
+    height: 120,
   },
   findDatePickerContainer: {
     flexDirection: 'row',
@@ -506,7 +510,7 @@ const styles = StyleSheet.create({
   },
   datePickerDevider: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#00000055',
     textAlign: 'center',

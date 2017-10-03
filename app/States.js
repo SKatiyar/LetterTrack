@@ -76,10 +76,12 @@ export default class States {
     let cFils = this.state.filters;
     let cState = this.state.selected.name.toLowerCase();
     if (overrides && overrides.filters) {
+      this.state.filters = overrides.filters;
       cFils = overrides.filters;
     }
     if (overrides && overrides.selected) {
-      cState = overrides.selected;
+      this.state.selected.name = overrides.selected;
+      cState = overrides.selected.toLowerCase();
     }
     if (cFils.word && cFils.word.token && cFils.word.selected.length) {
       let wordQuery = LetterModel.expr();
@@ -203,7 +205,7 @@ export default class States {
     }
 
     LetterModel.get({
-      where: this._parseFilters({selected: typeList[idx].toLowerCase()}),
+      where: this._parseFilters({selected: typeList[idx]}),
       order: {
         field: this.state.filters.sort.by,
         asc: this.state.filters.sort.asc
@@ -268,5 +270,4 @@ export default class States {
       });
     }.bind(this));
   };
-
 };

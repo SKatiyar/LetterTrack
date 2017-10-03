@@ -6,17 +6,16 @@ import {
   TextInput,
   StyleSheet,
   View,
-  ScrollView
 } from 'react-native';
 import {
   Button,
   Container,
+  Content,
   Icon,
   Toast
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import CheckBox from 'react-native-check-box';
-import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import { ModalHeader } from './Headers';
 
@@ -92,7 +91,7 @@ export default class AddLetter extends Component {
     return (
       <Container style={{flex: 1}}>
         <ModalHeader title={'Add Letter'} back={this.goBack}/>
-        <ScrollView style={{flex: 1}} contentContainerStyle={styles.content}>
+        <Content>
           <View>
             <Text style={styles.label}>
               Serial No.
@@ -184,8 +183,7 @@ export default class AddLetter extends Component {
             onPress={this.save}>
             <Text>Save</Text>
           </Button>
-        </ScrollView>
-        <KeyboardSpacer topSpacing={10}/>
+        </Content>
       </Container>
     );
   };

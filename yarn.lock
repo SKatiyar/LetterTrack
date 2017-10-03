@@ -3629,10 +3629,6 @@ react-native-easy-grid@0.1.15:
     prop-types "^15.5.10"
     react-timer-mixin "^0.13.3"
 
-react-native-keyboard-spacer@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.4.0.tgz#e8c4dae45e2e15b589c0a82690c46db82a2d1431"
-
 react-native-simple-radio-button@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.6.2.tgz#3f3d35b57c5d28b69304681ff2114c373d994046"
