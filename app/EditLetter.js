@@ -20,6 +20,8 @@ import CheckBox from 'react-native-check-box';
 
 import { ModalHeader } from './Headers';
 
+import LetterModel from './models/Letter';
+
 export default class EditLetter extends Component {
   static navigationOptions = {
     header: null
@@ -28,19 +30,28 @@ export default class EditLetter extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props.navigation.state.params);
+    const letterId = props.navigation.state.params.id;
+    const letterList = props.screenProps.items.list;
+    const letter = letterList.find(function(ele) {
+      return ele.letterId === letterId;
+    });
 
+    this.done = this.done.bind(this);
     this.goBack = this.goBack.bind(this);
-    this.save = this.save.bind(this);
+    this.update = this.update.bind(this);
+
+    console.log(letter);
 
     this.state = {
-      serialNo: '',
-      counterNo: '',
-      sentTo: '',
-      sentOn: new Date(),
-      subject: '',
-      replyBy: new Date(),
-      important: false,
+      letterId: (letter && letter.letterId) ? letter.letterId : '',
+      serialNo: (letter && letter.serialNo) ? letter.serialNo : '',
+      counterNo: (letter && letter.counterNo) ? letter.counterNo : '',
+      sentTo: (letter && letter.sentTo) ? letter.sentTo : '',
+      sentOn: (letter && letter.sentOn) ? letter.sentOn : Date.now(),
+      subject: (letter && letter.subject) ? letter.subject : '',
+      replyBy: (letter && letter.replyBy) ? letter.replyBy : Date.now(),
+      important: (letter && letter.important) ? true : false,
+      state: (letter && letter.state) ? letter.state : 'pending',
     };
   };
 
@@ -51,12 +62,23 @@ export default class EditLetter extends Component {
   date(val) {
     if (typeof val === 'string') {
       const date = val.split('/').map(function(i) { return i.trim() });
-      return new Date(parseInt(date[2]), parseInt(date[1]), parseInt(date[0]));
-    } else if (val instanceof Date) {
-      return '' + val.getDate() + ' / ' + val.getMonth() + ' / ' + val.getFullYear();
+      return new Date(parseInt(date[2]), parseInt(date[1] - 1), parseInt(date[0]));
+    } else if (typeof val === 'number') {
+      const nd = new Date(val);
+      return '' + nd.getDate() + ' / ' + (nd.getMonth() + 1) + ' / ' + nd.getFullYear();
     } else {
-      return new Date();
+      return Date.now();
     }
+  };
+
+  done() {
+    this.props.screenProps.actions.onLetterDone(this.state.letterId).then(function() {
+    }.bind(this)).catch(function(err) {
+      console.log(err);
+    }.bind(this));
+  };
+
+  delete() {
   };
 
   update() {
@@ -71,7 +93,7 @@ export default class EditLetter extends Component {
 
     data.important = this.state.important ? 1 : 0;
 
-    this.props.screenProps.actions.onLetterSaved(data).then(function() {
+    this.props.screenProps.actions.onLetterUpdate(this.state.letterId, data).then(function() {
       this.props.navigation.goBack();
     }.bind(this)).catch(function(err) {
       console.log(err);
@@ -89,6 +111,7 @@ export default class EditLetter extends Component {
                 Serial No.
               </Text>
               <TextInput
+                value={this.state.serialNo}
                 style={styles.textInput}
                 placeholder='eg: 123-ACD-201'
                 onChangeText={(text) => this.setState({serialNo: text})}/>
@@ -98,6 +121,7 @@ export default class EditLetter extends Component {
                 Counter No.
               </Text>
               <TextInput
+                value={this.state.counterNo}
                 style={styles.textInput}
                 placeholder='eg: AC-D201705'
                 onChangeText={(text) => this.setState({counterNo: text})}/>
@@ -107,6 +131,7 @@ export default class EditLetter extends Component {
                 Sent To
               </Text>
               <TextInput
+                value={this.state.sentTo}
                 style={styles.textInput}
                 placeholder='eg: Sales report office'
                 onChangeText={(text) => this.setState({sentTo: text})}/>
@@ -170,6 +195,7 @@ export default class EditLetter extends Component {
             <View>
               <Text style={styles.label}>Subject</Text>
               <TextInput
+                value={this.state.subject}
                 multiline={true}
                 style={styles.multiTextInput}
                 placeholder='eg: Report for sales office'
@@ -183,15 +209,19 @@ export default class EditLetter extends Component {
               <Text style={styles.label}>Important</Text>
             </View>
           </View>
+          <Button light full
+            onPress={this.save}>
+            <Text>Delete</Text>
+          </Button>
+          <Button light full
+            onPress={this.save}>
+            <Text>Close</Text>
+          </Button>
+          <Button light full
+            onPress={this.save}>
+            <Text>Save</Text>
+          </Button>
         </Content>
-        <Footer>
-          <FooterTab>
-            <Button light full
-              onPress={this.save}>
-              <Text>Save</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
       </Container>
     );
   };

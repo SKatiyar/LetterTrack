@@ -58,7 +58,7 @@ export default class HomeScreen extends Component {
         <Fab
           active={false}
           direction="up"
-          style={{backgroundColor: '#5067FF'}}
+          style={{backgroundColor: '#2C3E50'}}
           position="bottomRight"
           onPress={() => this.props.navigation.navigate('AddLetter')}>
           <Icon name="md-add" />

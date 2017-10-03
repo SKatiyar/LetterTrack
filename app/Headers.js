@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 import {
-  Text,
   StyleSheet,
   View,
   TouchableWithoutFeedback
@@ -14,7 +13,8 @@ import {
   Left,
   Body,
   Right,
-  Icon
+  Icon,
+  Text,
 } from 'native-base';
 
 export class HomeHeader extends Component {
@@ -37,7 +37,7 @@ export class HomeHeader extends Component {
 
   render() {
     return (
-      <Header>
+      <Header style={styles.header}>
         <Left>
           <TouchableWithoutFeedback
             onPress={() =>
@@ -47,52 +47,27 @@ export class HomeHeader extends Component {
                 title: 'Select Letter Types'
               }, this.state.onSelect)}>
             <View style={styles.optionsList}>
-              <View style={{
-                flex: 1,
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-                <View style={{width: 100, height: 22}}>
-                  <View style={{
-                    flex: 1,
+                <View style={{
+                    height: 25,
                     flexDirection: 'row',
                     justifyContent: 'flex-start',
                     alignItems: 'flex-start',
-                  }}>
-                    <View style={{height: 40, flexGrow: 0, paddingRight: 5}}>
-                      <Text style={{fontSize: 18}}>{this.state.selected.name}</Text>
-                    </View>
-                    <View style={{width: 20, height: 20, flexGrow: 0, flexShrink: 0}}>
-                      <Icon name="arrow-down" style={{fontSize:22, paddingTop: 2}}/>
-                    </View>
-                  </View>
+                }}>
+                  <Text style={{fontSize: 20, textAlign: 'left'}}>{this.state.selected.name}</Text>
+                  <Icon name="md-arrow-dropdown" style={{fontSize:24, paddingLeft: 5}} />
                 </View>
-                <View style={{width: 100, height: 20}}>
-                  <Text>{this.state.selected.text}</Text>
+                <View style={{padding: 0, margin: 0}}>
+                  <Text style={{fontSize: 18}}>{this.state.selected.text}</Text>
                 </View>
               </View>
-            </View>
           </TouchableWithoutFeedback>
         </Left>
         <Body />
         <Right>
-          <TouchableWithoutFeedback
+          <Button transparent dark
             onPress={this.props.onFilterSelect}>
-            <View style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'center'
-            }}>
-              <View style={{width: 50, height: 20}}>
-                <Text style={{fontSize: 18}}>Filters</Text>
-              </View>
-              <View style={{width: 20, height: 20}}>
-                <Icon name="md-options" style={{fontSize: 19, paddingLeft: 3, paddingTop: 1}}/>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
+            <Icon name="md-options"/>
+          </Button>
         </Right>
       </Header>
     );
@@ -110,9 +85,9 @@ export class ModalHeader extends Component {
 
   render() {
     return (
-      <Header>
+      <Header style={styles.header}>
         <Left>
-          <Text style={{fontSize: 18}}>{this.state.title}</Text>
+          <Text style={{fontSize: 24}}>{this.state.title}</Text>
         </Left>
         <Body />
         <Right>
@@ -128,11 +103,10 @@ export class ModalHeader extends Component {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 0
+    height: 80,
+    margin: 0
   },
   optionsList: {
-    position: 'absolute',
     width: 100,
-    top: -20
   }
 })
