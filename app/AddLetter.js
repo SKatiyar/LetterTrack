@@ -89,9 +89,9 @@ export default class AddLetter extends Component {
 
   render() {
     return (
-      <Container style={{flex: 1}}>
+      <Container>
         <ModalHeader title={'Add Letter'} back={this.goBack}/>
-        <Content>
+        <Content style={{padding: 10, marginBottom: 10}}>
           <View>
             <Text style={styles.label}>
               Serial No.
@@ -131,8 +131,8 @@ export default class AddLetter extends Component {
               style={styles.datePicker}
               date={this.date(this.state.sentOn)}
               customStyles={{
-                dateTouchBody: { height: 22, marginTop: 5, padding: 0 },
-                dateText: { fontSize: 15 },
+                dateTouchBody: { height: 22, marginTop: 10, padding: 0 },
+                dateText: { fontSize: 18 },
                 dateInput: { height: 22, alignItems: 'flex-start', borderWidth: 0 }
               }}
               mode='date'
@@ -149,8 +149,8 @@ export default class AddLetter extends Component {
               style={styles.datePicker}
               date={this.date(this.state.replyBy)}
               customStyles={{
-                dateTouchBody: { height: 22, marginTop: 5, padding: 0 },
-                dateText: { fontSize: 15 },
+                dateTouchBody: { height: 22, marginTop: 10, padding: 0 },
+                dateText: { fontSize: 18 },
                 dateInput: { height: 22, alignItems: 'flex-start', borderWidth: 0 }
               }}
               mode='date'
@@ -175,14 +175,16 @@ export default class AddLetter extends Component {
               style={styles.checkBox}
               isChecked={this.state.important}
               onClick={() => this.setState({important: !this.state.important})}/>
-            <Text style={styles.label}>Important</Text>
+            <Text style={styles.checkBoxLabel}>Important</Text>
           </View>
           <View style={styles.spacer} />
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5, marginTop: 20}}>
+            <Button style={styles.saveButton}
+              onPress={this.save}>
+              <Text style={styles.saveLabel}>Save</Text>
+            </Button>
+          </View>
           <View style={styles.spacer} />
-          <Button light full
-            onPress={this.save}>
-            <Text>Save</Text>
-          </Button>
         </Content>
       </Container>
     );
@@ -190,26 +192,34 @@ export default class AddLetter extends Component {
 };
 
 const styles = StyleSheet.create({
-  content: {
-    padding:10,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+  saveButton: {
+    backgroundColor: '#27AE60',
+    flex: 2,
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  saveLabel: {
+    flex: 1,
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#FFFFFF'
   },
   label: {
-    fontSize: 16,
-    marginTop: 15,
+    fontSize: 20,
+    marginTop: 20,
   },
   textInput: {
-    fontSize: 15,
-    marginTop: 5,
-    height: 22,
+    fontSize: 18,
+    marginTop: 10,
+    height: 35,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
   multiTextInput: {
-    fontSize: 15,
-    marginTop: 5,
-    height: 44,
+    fontSize: 18,
+    marginTop: 10,
+    height: 65,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
@@ -219,12 +229,16 @@ const styles = StyleSheet.create({
     flexGrow: 2,
   },
   checkBox: {
-    marginTop: 13,
     marginRight: 5,
   },
+  checkBoxLabel: {
+    fontSize: 18,
+  },
   inputImp: {
+    flex: 1,
     alignItems: 'flex-start',
     flexDirection:'row',
+    marginTop: 20
   },
   datePicker: {
     flex: 1,

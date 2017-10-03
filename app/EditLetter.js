@@ -204,7 +204,7 @@ export default class EditLetter extends Component {
                 style={styles.checkBox}
                 isChecked={this.state.important}
                 onClick={() => this.setState({important: !this.state.important})}/>
-              <Text style={styles.checkBoxlabel}
+              <Text style={styles.checkBoxLabel}
                 onPress={() => this.setState({important: !this.state.important})}>Important</Text>
             </View>
             <View style={styles.inputImp}>
@@ -212,7 +212,7 @@ export default class EditLetter extends Component {
                 style={styles.checkBox}
                 isChecked={(this.state.state === 'closed')}
                 onClick={() => this.setState({state: (this.state.state === 'closed') ? 'pending' : 'closed'})}/>
-              <Text style={styles.checkBoxlabel}
+              <Text style={styles.checkBoxLabel}
                 onPress={() => this.setState({state: (this.state.state === 'closed') ? 'pending' : 'closed'})}>
                 Closed
               </Text>
@@ -228,6 +228,7 @@ export default class EditLetter extends Component {
               <Text style={styles.saveLabel}>Save</Text>
             </Button>
           </View>
+          <View style={styles.spacer} />
         </Content>
       </Container>
     );
@@ -271,15 +272,15 @@ const styles = StyleSheet.create({
   },
   multiTextInput: {
     fontSize: 18,
-    marginTop: 5,
-    height: 64,
+    marginTop: 10,
+    height: 65,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
   checkBox: {
     marginRight: 5,
   },
-  checkBoxlabel: {
+  checkBoxLabel: {
     fontSize: 18,
   },
   inputImp: {

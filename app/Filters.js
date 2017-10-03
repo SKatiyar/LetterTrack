@@ -157,7 +157,7 @@ export default class Filters extends Component {
 
   render() {
     return (
-      <Container style={{flex: 1}}>
+      <Container>
         <ModalHeader title={'Filters'} back={this.goBack}/>
         <Content style={{padding: 10, marginBottom: 10}}>
           <View style={styles.findWord}>
@@ -370,7 +370,7 @@ export default class Filters extends Component {
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
             <Button style={styles.defaultsButton}
               onPress={this.defaults}>
               <Text style={styles.defaultsLabel}>Defaults</Text>
@@ -397,6 +397,7 @@ const styles = StyleSheet.create({
   },
   defaultsLabel: {
     fontSize: 18,
+    fontWeight: 'bold',
     color: '#FFFFFF'
   },
   applyButton: {
