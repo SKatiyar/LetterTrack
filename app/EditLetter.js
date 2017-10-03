@@ -199,6 +199,7 @@ export default class EditLetter extends Component {
                 placeholder='eg: Report for sales office'
                 onChangeText={(text) => this.setState({subject: text})}/>
             </View>
+            <View style={styles.spacer} />
             <View style={styles.inputImp}>
               <CheckBox
                 style={styles.checkBox}
@@ -207,6 +208,7 @@ export default class EditLetter extends Component {
               <Text style={styles.checkBoxLabel}
                 onPress={() => this.setState({important: !this.state.important})}>Important</Text>
             </View>
+            <View style={styles.spacer} />
             <View style={styles.inputImp}>
               <CheckBox
                 style={styles.checkBox}
@@ -265,15 +267,15 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 18,
-    marginTop: 10,
-    height: 35,
+    paddingTop: 10,
+    height: 40,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },
   multiTextInput: {
     fontSize: 18,
-    marginTop: 10,
-    height: 65,
+    paddingTop: 10,
+    height: 70,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
   },

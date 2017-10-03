@@ -37,7 +37,7 @@ export class HomeHeader extends Component {
 
   render() {
     return (
-      <Header style={styles.header}>
+      <Header style={styles.header} backgroundColor='#FFFFFF'>
         <Left>
           <TouchableWithoutFeedback
             onPress={() =>
@@ -85,9 +85,9 @@ export class ModalHeader extends Component {
 
   render() {
     return (
-      <Header style={styles.header}>
+      <Header style={styles.header} backgroundColor='#FFFFFF'>
         <Left>
-          <Text style={{fontSize: 24}}>{this.state.title}</Text>
+          <Text style={{fontSize: 24, width: 150}}>{this.state.title}</Text>
         </Left>
         <Body />
         <Right>
