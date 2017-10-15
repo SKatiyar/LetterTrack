@@ -97,6 +97,7 @@ export default class AddLetter extends Component {
               Serial No.
             </Text>
             <TextInput
+              underlineColorAndroid='transparent'
               style={styles.textInput}
               placeholder='eg: 123-ACD-201'
               onChangeText={(text) => this.setState({serialNo: text})}
@@ -108,6 +109,7 @@ export default class AddLetter extends Component {
               Counter No.
             </Text>
             <TextInput
+              underlineColorAndroid='transparent'
               style={styles.textInput}
               placeholder='eg: AC-D201705'
               onChangeText={(text) => this.setState({counterNo: text})}/>
@@ -118,6 +120,7 @@ export default class AddLetter extends Component {
               Sent To
             </Text>
             <TextInput
+              underlineColorAndroid='transparent'
               style={styles.textInput}
               placeholder='eg: Sales report office'
               onChangeText={(text) => this.setState({sentTo: text})}/>
@@ -131,9 +134,9 @@ export default class AddLetter extends Component {
               style={styles.datePicker}
               date={this.date(this.state.sentOn)}
               customStyles={{
-                dateTouchBody: { height: 22, marginTop: 10, padding: 0 },
-                dateText: { fontSize: 18 },
-                dateInput: { height: 22, alignItems: 'flex-start', borderWidth: 0 }
+                dateTouchBody: { height: 30, marginTop: 15, padding: 0 },
+                dateText: { fontSize: 18, paddingBottom: 15 },
+                dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
               }}
               mode='date'
               format='DD / MM / YYYY'
@@ -149,9 +152,9 @@ export default class AddLetter extends Component {
               style={styles.datePicker}
               date={this.date(this.state.replyBy)}
               customStyles={{
-                dateTouchBody: { height: 22, marginTop: 10, padding: 0 },
-                dateText: { fontSize: 18 },
-                dateInput: { height: 22, alignItems: 'flex-start', borderWidth: 0 }
+                dateTouchBody: { height: 30, marginTop: 15, padding: 0 },
+                dateText: { fontSize: 18, paddingBottom: 15 },
+                dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
               }}
               mode='date'
               format='DD / MM / YYYY'
@@ -164,6 +167,7 @@ export default class AddLetter extends Component {
           <View>
             <Text style={styles.label}>Subject</Text>
             <TextInput
+              underlineColorAndroid='transparent'
               multiline={true}
               style={styles.multiTextInput}
               placeholder='eg: Report for sales office'
@@ -175,8 +179,10 @@ export default class AddLetter extends Component {
               style={styles.checkBox}
               isChecked={this.state.important}
               onClick={() => this.setState({important: !this.state.important})}/>
-            <Text style={styles.checkBoxLabel}>Important</Text>
+            <Text style={styles.checkBoxLabel}
+              onPress={() => this.setState({important: !this.state.important})}>Important</Text>
           </View>
+          <View style={styles.spacer} />
           <View style={styles.spacer} />
           <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5, marginTop: 20}}>
             <Button style={styles.saveButton}
@@ -206,12 +212,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   label: {
+    color: '#000000',
     fontSize: 20,
     marginTop: 20,
   },
   textInput: {
     fontSize: 18,
     paddingTop: 10,
+    marginTop: 5,
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
@@ -230,9 +238,10 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     marginRight: 5,
+    marginTop: 3,
   },
   checkBoxLabel: {
-    fontSize: 18,
+    fontSize: 20,
   },
   inputImp: {
     flex: 1,
