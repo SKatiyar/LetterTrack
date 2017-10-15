@@ -3635,9 +3635,9 @@ react-native-easy-grid@0.1.15:
     prop-types "^15.5.10"
     react-timer-mixin "^0.13.3"
 
-react-native-simple-radio-button@^2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.6.2.tgz#3f3d35b57c5d28b69304681ff2114c373d994046"
+react-native-simple-radio-button@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.0.tgz#0ad7e9beda7650519ca7ae479ee94cf7facd7d4e"
 
 react-native-sqlite-storage@^3.3.3:
   version "3.3.3"
