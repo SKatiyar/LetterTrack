@@ -129,6 +129,7 @@ export default class EditLetter extends Component {
                 Serial No.
               </Text>
               <TextInput
+                underlineColorAndroid='transparent'
                 value={this.state.serialNo}
                 style={styles.textInput}
                 placeholder='eg: 123-ACD-201'
@@ -139,6 +140,7 @@ export default class EditLetter extends Component {
                 Counter No.
               </Text>
               <TextInput
+                underlineColorAndroid='transparent'
                 value={this.state.counterNo}
                 style={styles.textInput}
                 placeholder='eg: AC-D201705'
@@ -149,6 +151,7 @@ export default class EditLetter extends Component {
                 Sent To
               </Text>
               <TextInput
+                underlineColorAndroid='transparent'
                 value={this.state.sentTo}
                 style={styles.textInput}
                 placeholder='eg: Sales report office'
@@ -162,8 +165,8 @@ export default class EditLetter extends Component {
                 style={styles.datePicker}
                 date={this.date(this.state.sentOn)}
                 customStyles={{
-                  dateTouchBody: { height: 30, marginTop: 10, padding: 0 },
-                  dateText: { fontSize: 18 },
+                  dateTouchBody: { height: 30, marginTop: 15, padding: 0 },
+                  dateText: { fontSize: 18, paddingBottom: 15 },
                   dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
                 }}
                 mode='date'
@@ -179,8 +182,8 @@ export default class EditLetter extends Component {
                 style={styles.datePicker}
                 date={this.date(this.state.replyBy)}
                 customStyles={{
-                  dateTouchBody: { height: 30, marginTop: 10, padding: 0 },
-                  dateText: { fontSize: 18 },
+                  dateTouchBody: { height: 30, marginTop: 15, padding: 0 },
+                  dateText: { fontSize: 18, paddingBottom: 15 },
                   dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
                 }}
                 mode='date'
@@ -193,6 +196,7 @@ export default class EditLetter extends Component {
             <View>
               <Text style={styles.label}>Subject</Text>
               <TextInput
+                underlineColorAndroid='transparent'
                 value={this.state.subject}
                 multiline={true}
                 style={styles.multiTextInput}
@@ -262,12 +266,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   label: {
+    color: '#000000',
     fontSize: 20,
     marginTop: 20,
   },
   textInput: {
     fontSize: 18,
     paddingTop: 10,
+    marginTop: 5,
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
@@ -281,9 +287,11 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     marginRight: 5,
+    marginTop: 3,
   },
   checkBoxLabel: {
-    fontSize: 18,
+    fontSize: 20,
+    color: '#000000',
   },
   inputImp: {
     flex: 1,

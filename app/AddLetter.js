@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
   },
   checkBoxLabel: {
     fontSize: 20,
+    color: '#000000',
   },
   inputImp: {
     flex: 1,
