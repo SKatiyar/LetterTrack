@@ -99,14 +99,11 @@ export class ModalHeader extends Component {
       </Header>
     );
   };
-}
+};
 
 const styles = StyleSheet.create({
   header: {
     height: 80,
     margin: 0
-  },
-  optionsList: {
-    width: 100,
   }
-})
+});

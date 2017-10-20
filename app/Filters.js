@@ -163,6 +163,7 @@ export default class Filters extends Component {
           <View style={styles.findWord}>
             <Text style={styles.label}>Find Word</Text>
             <TextInput
+              underlineColorAndroid='transparent'
               style={styles.textInput}
               value={this.state.word.token}
               onChangeText={(text) => this.setState({word: {token: text, selected: this.state.word.selected}})}
@@ -370,7 +371,9 @@ export default class Filters extends Component {
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+          <View style={styles.spacer} />
+          <View style={styles.spacer} />
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5}}>
             <Button style={styles.defaultsButton}
               onPress={this.defaults}>
               <Text style={styles.defaultsLabel}>Defaults</Text>
@@ -422,7 +425,9 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 20,
-    marginTop: 20,
+    color: '#000000',
+    padding: 5,
+    marginBottom: 10,
   },
   checkboxLabel: {
     fontSize: 18,
@@ -434,12 +439,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   spacer: {
-    height: 10,
+    height: 20,
     flexShrink: 0,
     flexGrow: 2,
   },
   findWord: {
-    height: 180,
+    height: 190,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
   },
   checkboxList: {
     flex: 1,
@@ -473,10 +480,14 @@ const styles = StyleSheet.create({
     borderColor: '#000',
   },
   findDate: {
-    height: 180,
+    height: 200,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
   },
   sortBy: {
-    height: 120,
+    height: 140,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
   },
   applyButtonContainer: {
     marginTop: 50,
@@ -493,7 +504,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   sortOrder: {
-    height: 120,
+    height: 110,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
   },
   findDatePickerContainer: {
     flexDirection: 'row',

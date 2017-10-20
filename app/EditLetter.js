@@ -135,6 +135,7 @@ export default class EditLetter extends Component {
                 placeholder='eg: 123-ACD-201'
                 onChangeText={(text) => this.setState({serialNo: text})}/>
             </View>
+            <View style={styles.spacer} />
             <View>
               <Text style={styles.label}>
                 Counter No.
@@ -146,6 +147,7 @@ export default class EditLetter extends Component {
                 placeholder='eg: AC-D201705'
                 onChangeText={(text) => this.setState({counterNo: text})}/>
             </View>
+            <View style={styles.spacer} />
             <View>
               <Text style={styles.label}>
                 Sent To
@@ -157,6 +159,7 @@ export default class EditLetter extends Component {
                 placeholder='eg: Sales report office'
                 onChangeText={(text) => this.setState({sentTo: text})}/>
             </View>
+            <View style={styles.spacer} />
             <View style={styles.dateView}>
               <Text style={styles.label}>
                 Sent On
@@ -176,6 +179,7 @@ export default class EditLetter extends Component {
                 showIcon={false}
                 onDateChange={(d) => this.setState({sentOn: this.date(d)})}/>
             </View>
+            <View style={styles.spacer} />
             <View style={styles.dateView}>
               <Text style={styles.label}>Reply By</Text>
               <DatePicker
@@ -193,6 +197,7 @@ export default class EditLetter extends Component {
                 showIcon={false}
                 onDateChange={(d) => this.setState({replyBy: this.date(d)})}/>
             </View>
+            <View style={styles.spacer} />
             <View>
               <Text style={styles.label}>Subject</Text>
               <TextInput
@@ -212,7 +217,6 @@ export default class EditLetter extends Component {
               <Text style={styles.checkBoxLabel}
                 onPress={() => this.setState({important: !this.state.important})}>Important</Text>
             </View>
-            <View style={styles.spacer} />
             <View style={styles.inputImp}>
               <CheckBox
                 style={styles.checkBox}
@@ -224,6 +228,8 @@ export default class EditLetter extends Component {
               </Text>
             </View>
           </View>
+          <View style={styles.spacer} />
+          <View style={styles.spacer} />
           <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5, marginTop: 20}}>
             <Button style={styles.deleteButton}
               onPress={this.remove}>
@@ -234,6 +240,7 @@ export default class EditLetter extends Component {
               <Text style={styles.saveLabel}>Save</Text>
             </Button>
           </View>
+          <View style={styles.spacer} />
           <View style={styles.spacer} />
         </Content>
       </Container>
@@ -302,6 +309,11 @@ const styles = StyleSheet.create({
   datePicker: {
     flex: 1,
     borderBottomWidth: 0,
+  },
+  spacer: {
+    height: 20,
+    flexShrink: 0,
+    flexGrow: 2,
   },
   dateView: {
     borderBottomWidth: 1,

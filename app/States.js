@@ -1,6 +1,6 @@
 'use strict';
 
-import LetterModel from './models/Letter';
+import LetterModel from './models/Letter.js';
 
 const typeList = ['Pending', 'Important', 'Closed'];
 

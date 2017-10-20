@@ -21,6 +21,7 @@ class Letter {
     vals && vals.sentTo && query.set('sentTo', vals.sentTo);
     vals && vals.sentOn && query.set('sentOn', vals.sentOn);
     vals && vals.subject && query.set('subject', vals.subject);
+    vals && vals.images && query.set('images', vals.images);
     vals && vals.replyBy && query.set('replyBy', vals.replyBy);
 
     if (vals && vals.important !== undefined && vals.important !== null) {
@@ -41,6 +42,7 @@ class Letter {
     vals && vals.sentTo && query.set('sentTo', vals.sentTo);
     vals && vals.sentOn && query.set('sentOn', vals.sentOn);
     vals && vals.subject && query.set('subject', vals.subject);
+    vals && vals.images && query.set('images', vals.images);
     vals && vals.replyBy && query.set('replyBy', vals.replyBy);
     vals && vals.state && query.set('state', vals.state);
 

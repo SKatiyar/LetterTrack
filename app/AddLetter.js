@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import {
+  Modal,
   Text,
   TextInput,
   StyleSheet,
@@ -16,8 +17,10 @@ import {
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import CheckBox from 'react-native-check-box';
+import Camera from 'react-native-camera';
 
 import { ModalHeader } from './Headers';
+import ImageList from './Images.js';
 
 export default class AddLetter extends Component {
   static navigationOptions = {
@@ -29,6 +32,8 @@ export default class AddLetter extends Component {
 
     this.goBack = this.goBack.bind(this);
     this.save = this.save.bind(this);
+    this.showCamera = this.showCamera.bind(this);
+    this.takePicture = this.takePicture.bind(this);
 
     this.state = {
       serialNo: '',
@@ -38,7 +43,30 @@ export default class AddLetter extends Component {
       subject: '',
       replyBy: Date.now(),
       important: false,
+      images: '',
+      modalVisible: false,
     };
+  };
+
+  showCamera(visible) {
+    this.setState({modalVisible: visible});
+  };
+
+  takePicture() {
+    this.camera.capture({}).then(function(data) {
+      this.showCamera(false);
+      let images = this.state.images ? this.state.images.split(',') : [];
+      images.push(data.path);
+      this.state.images = images.join(',');
+      this.setState(this.state);
+    }.bind(this)).catch(function(err) {
+      Toast.show({
+        text: 'Error happened!',
+        position: 'bottom',
+        buttonText: 'Dismiss'
+      });
+      console.log(err);
+    });
   };
 
   goBack() {
@@ -66,6 +94,7 @@ export default class AddLetter extends Component {
     this.state.sentOn && (data.sentOn = this.state.sentOn);
     this.state.subject && (data.subject = this.state.subject);
     this.state.replyBy && (data.replyBy = this.state.replyBy);
+    this.state.images && (data.images = this.state.images);
 
     data.important = this.state.important ? 1 : 0;
 
@@ -91,7 +120,7 @@ export default class AddLetter extends Component {
     return (
       <Container>
         <ModalHeader title={'Add Letter'} back={this.goBack}/>
-        <Content style={{padding: 10, marginBottom: 10}}>
+        <Content style={{padding: 10}}>
           <View>
             <Text style={styles.label}>
               Serial No.
@@ -174,6 +203,12 @@ export default class AddLetter extends Component {
               onChangeText={(text) => this.setState({subject: text})}/>
           </View>
           <View style={styles.spacer} />
+          <View>
+            <Text style={styles.label}>Add Image</Text>
+            <View style={styles.spacer} />
+            <ImageList images={this.state.images} showCamera={this.showCamera}/>
+          </View>
+          <View style={styles.spacer} />
           <View style={styles.inputImp}>
             <CheckBox
               style={styles.checkBox}
@@ -183,15 +218,29 @@ export default class AddLetter extends Component {
               onPress={() => this.setState({important: !this.state.important})}>Important</Text>
           </View>
           <View style={styles.spacer} />
-          <View style={styles.spacer} />
-          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5, marginTop: 20}}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-around', padding: 5}}>
             <Button style={styles.saveButton}
               onPress={this.save}>
               <Text style={styles.saveLabel}>Save</Text>
             </Button>
           </View>
           <View style={styles.spacer} />
+          <View style={styles.spacer} />
         </Content>
+        <Modal animationType={'fade'}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {this.showCamera(false)}}>
+          <Camera
+            ref={(cam) => {
+              this.camera = cam;
+            }}
+            captureMode={Camera.constants.CaptureMode.still}
+            style={styles.imagePreview}
+            aspect={Camera.constants.Aspect.fill}>
+            <Icon name='md-aperture' style={styles.captureImage} onPress={this.takePicture} />
+          </Camera>
+        </Modal>
       </Container>
     );
   };
@@ -232,7 +281,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#00000011',
   },
   spacer: {
-    height: 10,
+    height: 20,
     flexShrink: 0,
     flexGrow: 2,
   },
@@ -257,5 +306,15 @@ const styles = StyleSheet.create({
   dateView: {
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
-  }
+  },
+  imagePreview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  captureImage: {
+    fontSize: 50,
+    paddingBottom: 20,
+    color: '#FFFFFF'
+  },
 });
