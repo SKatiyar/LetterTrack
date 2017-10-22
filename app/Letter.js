@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   touchContainer: {
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
-    borderBottomColor: '#00000022',
+    borderBottomColor: '#00000077',
   },
   content: {
     flex: 1,
