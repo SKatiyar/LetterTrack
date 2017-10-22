@@ -20,7 +20,7 @@ import CheckBox from 'react-native-check-box';
 import Camera from 'react-native-camera';
 
 import { ModalHeader } from './Headers';
-import ImageList from './Images.js';
+import ImageList from './Images';
 
 export default class AddLetter extends Component {
   static navigationOptions = {
@@ -237,6 +237,7 @@ export default class AddLetter extends Component {
             }}
             captureMode={Camera.constants.CaptureMode.still}
             style={styles.imagePreview}
+            captureTarget={Camera.constants.CaptureTarget.disk}
             aspect={Camera.constants.Aspect.fill}>
             <Icon name='md-aperture' style={styles.captureImage} onPress={this.takePicture} />
           </Camera>

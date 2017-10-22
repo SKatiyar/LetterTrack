@@ -2,10 +2,11 @@
 
 import React, { Component } from 'react';
 import {
+  Modal,
   Text,
   TextInput,
   StyleSheet,
-  View
+  View,
 } from 'react-native';
 import {
   Button,
@@ -16,10 +17,12 @@ import {
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 import CheckBox from 'react-native-check-box';
+import Camera from 'react-native-camera';
 
 import { ModalHeader } from './Headers';
 
 import LetterModel from './models/Letter';
+import ImageList from './Images';
 
 export default class EditLetter extends Component {
   static navigationOptions = {
@@ -38,6 +41,8 @@ export default class EditLetter extends Component {
     this.goBack = this.goBack.bind(this);
     this.update = this.update.bind(this);
     this.remove = this.remove.bind(this);
+    this.showCamera = this.showCamera.bind(this);
+    this.takePicture = this.takePicture.bind(this);
 
     this.state = {
       letterId: (letter && letter.letterId) ? letter.letterId : '',
@@ -46,14 +51,37 @@ export default class EditLetter extends Component {
       sentTo: (letter && letter.sentTo) ? letter.sentTo : '',
       sentOn: (letter && letter.sentOn) ? letter.sentOn : Date.now(),
       subject: (letter && letter.subject) ? letter.subject : '',
+      images: (letter && letter.images) ? letter.images : '',
       replyBy: (letter && letter.replyBy) ? letter.replyBy : Date.now(),
       important: (letter && letter.important) ? true : false,
       state: (letter && letter.state) ? letter.state : 'pending',
+      modalVisible: false,
     };
   };
 
   goBack() {
     this.props.navigation.goBack();
+  };
+
+  showCamera(visible) {
+    this.setState({modalVisible: visible});
+  };
+
+  takePicture() {
+    this.camera.capture({}).then(function(data) {
+      this.showCamera(false);
+      let images = this.state.images ? this.state.images.split(',') : [];
+      images.push(data.path);
+      this.state.images = images.join(',');
+      this.setState(this.state);
+    }.bind(this)).catch(function(err) {
+      Toast.show({
+        text: 'Error happened!',
+        position: 'bottom',
+        buttonText: 'Dismiss'
+      });
+      console.log(err);
+    });
   };
 
   date(val) {
@@ -209,6 +237,12 @@ export default class EditLetter extends Component {
                 onChangeText={(text) => this.setState({subject: text})}/>
             </View>
             <View style={styles.spacer} />
+            <View>
+              <Text style={styles.label}>Add Image</Text>
+              <View style={styles.spacer} />
+              <ImageList images={this.state.images} showCamera={this.showCamera}/>
+            </View>
+            <View style={styles.spacer} />
             <View style={styles.inputImp}>
               <CheckBox
                 style={styles.checkBox}
@@ -243,6 +277,21 @@ export default class EditLetter extends Component {
           <View style={styles.spacer} />
           <View style={styles.spacer} />
         </Content>
+        <Modal animationType={'fade'}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {this.showCamera(false)}}>
+          <Camera
+            ref={(cam) => {
+              this.camera = cam;
+            }}
+            captureMode={Camera.constants.CaptureMode.still}
+            style={styles.imagePreview}
+            captureTarget={Camera.constants.CaptureTarget.disk}
+            aspect={Camera.constants.Aspect.fill}>
+            <Icon name='md-aperture' style={styles.captureImage} onPress={this.takePicture} />
+          </Camera>
+        </Modal>
       </Container>
     );
   };
@@ -318,5 +367,15 @@ const styles = StyleSheet.create({
   dateView: {
     borderBottomWidth: 1,
     borderBottomColor: '#00000011',
-  }
+  },
+  imagePreview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  captureImage: {
+    fontSize: 50,
+    paddingBottom: 20,
+    color: '#FFFFFF'
+  },
 });
