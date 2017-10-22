@@ -26,7 +26,7 @@ export class LetterCard extends Component {
   dateToStr(d, t) {
     let nd = new Date(d);
     if (t) {
-      return '' + nd.getHours() + ' : ' + nd.getMinutes() + ' on ' + nd.getDate() + ' / ' + (nd.getMonth() + 1) + ' / ' + nd.getFullYear();
+      return '' + nd.getHours() + ' : ' + nd.getMinutes() + '  On  ' + nd.getDate() + ' / ' + (nd.getMonth() + 1) + ' / ' + nd.getFullYear();
     }
     return '' + nd.getDate() + ' / ' + (nd.getMonth() + 1) + ' / ' + nd.getFullYear();
   };
@@ -50,52 +50,52 @@ export class LetterCard extends Component {
         activeOpacity={0.7}
         style={styles.touchContainer}>
         <View style={[styles.content, {borderLeftColor: important ? '#E74C3C' : '#FFFFFF'}]}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', borderBottomWidth: 0.5, borderBottomColor: '#00000011'}}>
             <View style={styles.label}>
               <Text style={styles.labelText}>Serial No.</Text>
             </View>
             <View style={styles.value}>
-              <Text>{serialNo}</Text>
+              <Text style={styles.labelValue}>{serialNo}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', borderBottomWidth: 0.5, borderBottomColor: '#00000011'}}>
             <View style={styles.label}>
               <Text style={styles.labelText}>Counter No.</Text>
             </View>
             <View style={styles.value}>
-              <Text>{counterNo}</Text>
+              <Text style={styles.labelValue}>{counterNo}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', borderBottomWidth: 0.5, borderBottomColor: '#00000011'}}>
             <View style={styles.label}>
               <Text style={styles.labelText}>Sent To</Text>
             </View>
             <View style={styles.value}>
-              <Text>{sentTo}</Text>
+              <Text style={styles.labelValue}>{sentTo}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', borderBottomWidth: 0.5, borderBottomColor: '#00000011'}}>
             <View style={styles.label}>
               <Text style={styles.labelText}>Sent On</Text>
             </View>
             <View style={styles.value}>
-              <Text>{this.dateToStr(sentOn)}</Text>
+              <Text style={styles.labelValue}>{this.dateToStr(sentOn)}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', borderBottomWidth: 0.5, borderBottomColor: '#00000011'}}>
             <View style={styles.label}>
               <Text style={styles.labelText}>Reply By</Text>
             </View>
             <View style={styles.value}>
-              <Text>{this.dateToStr(replyBy)}</Text>
+              <Text style={styles.labelValue}>{this.dateToStr(replyBy)}</Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row', borderBottomWidth: 0.5, borderBottomColor: '#00000011'}}>
             <View style={styles.label}>
               <Text style={styles.labelText}>Subject</Text>
             </View>
             <View style={styles.value}>
-              <Text>{subject}</Text>
+              <Text style={styles.labelValue}>{subject}</Text>
             </View>
           </View>
           <View style={{flexDirection: 'row'}}>
@@ -103,7 +103,7 @@ export class LetterCard extends Component {
               <Text style={styles.labelText}>Updated At</Text>
             </View>
             <View style={styles.value}>
-              <Text>{this.dateToStr(updatedAt, true)}</Text>
+              <Text style={styles.labelValue}>{this.dateToStr(updatedAt, true)}</Text>
             </View>
           </View>
         </View>
@@ -114,7 +114,7 @@ export class LetterCard extends Component {
 
 const styles = StyleSheet.create({
   touchContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     borderBottomWidth: 1,
     borderBottomColor: '#00000022',
   },
@@ -127,14 +127,22 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   label: {
-    width: 90,
-    paddingBottom: 5,
+    width: 105,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRightWidth: 0.5,
+    borderRightColor: '#00000011'
   },
   labelText: {
-    fontSize: 15
+    fontSize: 18,
+    color: '#000000',
   },
   value: {
     flex: 1,
-    paddingBottom: 5,
-  }
+    justifyContent: 'center',
+    marginLeft: 10,
+  },
+  labelValue: {
+    fontSize: 18,
+  },
 });
