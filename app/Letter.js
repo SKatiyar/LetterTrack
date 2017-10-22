@@ -144,5 +144,7 @@ const styles = StyleSheet.create({
   },
   labelValue: {
     fontSize: 18,
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
