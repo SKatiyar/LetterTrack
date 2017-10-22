@@ -41,6 +41,7 @@ export default class EditLetter extends Component {
     this.goBack = this.goBack.bind(this);
     this.update = this.update.bind(this);
     this.remove = this.remove.bind(this);
+    this.removeImage = this.removeImage.bind(this);
     this.showCamera = this.showCamera.bind(this);
     this.takePicture = this.takePicture.bind(this);
 
@@ -84,6 +85,16 @@ export default class EditLetter extends Component {
     });
   };
 
+  removeImage(img) {
+    let images = this.state.images ? this.state.images.split(',') : [];
+    let idx = images.indexOf(img)
+    if (idx > -1) {
+      images.splice(idx, 1)
+    }
+    this.state.images = images.join(',');
+    this.setState(this.state);
+  };
+
   date(val) {
     if (typeof val === 'string') {
       const date = val.split('/').map(function(i) { return i.trim() });
@@ -123,6 +134,7 @@ export default class EditLetter extends Component {
     this.state.sentTo && (data.sentTo = this.state.sentTo);
     this.state.sentOn && (data.sentOn = this.state.sentOn);
     this.state.subject && (data.subject = this.state.subject);
+    this.state.images && (data.images = this.state.images);
     this.state.replyBy && (data.replyBy = this.state.replyBy);
     this.state.state && (data.state = this.state.state);
 
@@ -240,7 +252,7 @@ export default class EditLetter extends Component {
             <View>
               <Text style={styles.label}>Add Image</Text>
               <View style={styles.spacer} />
-              <ImageList images={this.state.images} showCamera={this.showCamera}/>
+              <ImageList images={this.state.images} showCamera={this.showCamera} removeImage={this.removeImage}/>
             </View>
             <View style={styles.spacer} />
             <View style={styles.inputImp}>

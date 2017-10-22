@@ -32,6 +32,7 @@ export default class AddLetter extends Component {
 
     this.goBack = this.goBack.bind(this);
     this.save = this.save.bind(this);
+    this.removeImage = this.removeImage.bind(this);
     this.showCamera = this.showCamera.bind(this);
     this.takePicture = this.takePicture.bind(this);
 
@@ -67,6 +68,16 @@ export default class AddLetter extends Component {
       });
       console.log(err);
     });
+  };
+
+  removeImage(img) {
+    let images = this.state.images ? this.state.images.split(',') : [];
+    let idx = images.indexOf(img)
+    if (idx > -1) {
+      images.splice(idx, 1)
+    }
+    this.state.images = images.join(',');
+    this.setState(this.state);
   };
 
   goBack() {
@@ -206,7 +217,7 @@ export default class AddLetter extends Component {
           <View>
             <Text style={styles.label}>Add Image</Text>
             <View style={styles.spacer} />
-            <ImageList images={this.state.images} showCamera={this.showCamera}/>
+            <ImageList images={this.state.images} showCamera={this.showCamera} removeImage={this.removeImage}/>
           </View>
           <View style={styles.spacer} />
           <View style={styles.inputImp}>
