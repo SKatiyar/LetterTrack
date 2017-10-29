@@ -19,9 +19,10 @@ import {
   RadioButtonLabel
 } from 'react-native-simple-radio-button';
 import CheckBox from 'react-native-check-box';
-import DatePicker from 'react-native-datepicker';
 
 import { ModalHeader } from './Headers';
+
+import DatePicker from './DatePicker';
 
 export default class Filters extends Component {
   static navigationOptions = {
@@ -57,18 +58,6 @@ export default class Filters extends Component {
         asc: props.screenProps.filters.sort.asc
       }
     };
-  };
-
-  date(val) {
-    if (typeof val === 'string') {
-      const date = val.split('/').map(function(i) { return i.trim() });
-      return (new Date(parseInt(date[2]), parseInt(date[1] - 1), parseInt(date[0]))).getTime();
-    } else if (typeof val === 'number') {
-      const iDate = new Date(val);
-      return '' + iDate.getDate() + ' / ' + (iDate.getMonth() + 1) + ' / ' + iDate.getFullYear();
-    } else {
-      return Date.now();
-    }
   };
 
   goBack() {
@@ -221,20 +210,10 @@ export default class Filters extends Component {
             <View style={styles.findDatePickerContainer}>
               <DatePicker
                 style={styles.datePicker}
-                date={this.date((this.state.date.start ? this.state.date.start : Date.now()))}
-                customStyles={{
-                  dateTouchBody: styles.dateTouchBody,
-                  dateText: { fontSize: 18 },
-                  dateInput: { height: 30, alignItems: 'center', borderWidth: 0 }
-                }}
-                mode='date'
-                format='DD / MM / YYYY'
-                confirmBtnText='Confirm'
-                cancelBtnText='Cancel'
-                showIcon={false}
+                date={new Date((this.state.date.start ? this.state.date.start : Date.now()))}
                 onDateChange={(d) => this.setState({
                   date: {
-                    start: this.date(d),
+                    start: d.getTime(),
                     end: this.state.date.end,
                     selected: this.state.date.selected
                   }
@@ -242,21 +221,11 @@ export default class Filters extends Component {
               <Text style={styles.datePickerDevider}> - To - </Text>
               <DatePicker
                 style={styles.datePicker}
-                date={this.date((this.state.date.end ? this.state.date.end : Date.now()))}
-                customStyles={{
-                  dateTouchBody: styles.dateTouchBody,
-                  dateText: { fontSize: 18 },
-                  dateInput: { height: 30, alignItems: 'center', borderWidth: 0 }
-                }}
-                mode='date'
-                format='DD / MM / YYYY'
-                confirmBtnText='Confirm'
-                cancelBtnText='Cancel'
-                showIcon={false}
+                date={new Date((this.state.date.end ? this.state.date.end : Date.now()))}
                 onDateChange={(d) => this.setState({
                   date: {
                     start: this.state.date.start,
-                    end: this.date(d),
+                    end: d.getTime(),
                     selected: this.state.date.selected
                   }
                 })}/>

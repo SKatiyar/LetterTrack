@@ -15,12 +15,12 @@ import {
   Icon,
   Toast
 } from 'native-base';
-import DatePicker from 'react-native-datepicker';
 import CheckBox from 'react-native-check-box';
 import Camera from 'react-native-camera';
 
 import { ModalHeader } from './Headers';
 import ImageList from './Images';
+import DatePicker from './DatePicker';
 
 export default class AddLetter extends Component {
   static navigationOptions = {
@@ -82,18 +82,6 @@ export default class AddLetter extends Component {
 
   goBack() {
     this.props.navigation.goBack();
-  };
-
-  date(val) {
-    if (typeof val === 'string') {
-      const date = val.split('/').map(function(i) { return i.trim() });
-      return (new Date(parseInt(date[2]), parseInt(date[1] - 1), parseInt(date[0]))).getTime();
-    } else if (typeof val === 'number') {
-      const iDate = new Date(val);
-      return '' + iDate.getDate() + ' / ' + (iDate.getMonth() + 1) + ' / ' + iDate.getFullYear();
-    } else {
-      return Date.now();
-    }
   };
 
   save() {
@@ -172,36 +160,16 @@ export default class AddLetter extends Component {
             </Text>
             <DatePicker
               style={styles.datePicker}
-              date={this.date(this.state.sentOn)}
-              customStyles={{
-                dateTouchBody: { height: 30, marginTop: 15, padding: 0 },
-                dateText: { fontSize: 18, paddingBottom: 15 },
-                dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
-              }}
-              mode='date'
-              format='DD / MM / YYYY'
-              confirmBtnText='Confirm'
-              cancelBtnText='Cancel'
-              showIcon={false}
-              onDateChange={(d) => this.setState({sentOn: this.date(d)})}/>
+              date={new Date(this.state.sentOn)}
+              onDateChange={(d) => this.setState({sentOn: d.getTime()})}/>
           </View>
           <View style={styles.spacer} />
           <View style={styles.dateView}>
             <Text style={styles.label}>Reply By</Text>
             <DatePicker
               style={styles.datePicker}
-              date={this.date(this.state.replyBy)}
-              customStyles={{
-                dateTouchBody: { height: 30, marginTop: 15, padding: 0 },
-                dateText: { fontSize: 18, paddingBottom: 15 },
-                dateInput: { height: 30, alignItems: 'flex-start', borderWidth: 0 }
-              }}
-              mode='date'
-              format='DD / MM / YYYY'
-              confirmBtnText='Confirm'
-              cancelBtnText='Cancel'
-              showIcon={false}
-              onDateChange={(d) => this.setState({replyBy: this.date(d)})}/>
+              date={new Date(this.state.replyBy)}
+              onDateChange={(d) => this.setState({replyBy: d.getTime()})}/>
           </View>
           <View style={styles.spacer} />
           <View>
