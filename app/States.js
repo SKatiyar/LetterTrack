@@ -85,8 +85,13 @@ export default class States {
     }
     if (cFils.word && cFils.word.token && cFils.word.selected.length) {
       let wordQuery = LetterModel.expr();
+      let tokens = cFils.word.token.split(' ').filter(function(t) {
+        return t.length;
+      });
       for (let wi = 0; wi < cFils.word.selected.length; wi++) {
-        wordQuery.or(cFils.word.selected[wi] + ' LIKE (?)', '%' + cFils.word.token + '%');
+        for (let ti = 0; ti < tokens.length; ti++) {
+          wordQuery.or('LOWER(' + cFils.word.selected[wi] + ') LIKE LOWER(?)', '%' + tokens[ti] + '%');
+        }
       }
       query.and(wordQuery);
     }
