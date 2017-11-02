@@ -19,10 +19,6 @@ export class LetterCard extends Component {
     this.editItem = props.editItem.bind(this);
   };
 
-  editItem(idx) {
-    alert(idx);
-  };
-
   dateToStr(d, t) {
     let nd = new Date(d);
     if (t) {

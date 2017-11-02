@@ -7,12 +7,17 @@ import React, { Component } from 'react';
 import {
   DatePickerAndroid,
   DatePickerIOS,
+  Modal,
   Platform,
-  Text,
-  Toast,
   StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {
+  Button,
+  Toast
+} from 'native-base';
 
 export default class DatePicker extends Component {
   constructor(props) {
@@ -36,12 +41,61 @@ export default class DatePicker extends Component {
 };
 
 class IOSDatePicker extends Component {
+  constructor(props) {
+    super(props);
+
+    this.openPicker = this.openPicker.bind(this);
+
+    this.initialDate = props.date;
+
+    this.state = {
+      date: props.date,
+      modalVisible: false,
+    };
+  };
+
+  openPicker(visible, update) {
+    this.setState({
+      modalVisible: visible,
+      date: update ? this.state.date : this.initialDate,
+    });
+    if (update) {
+      this.props.onDateChange(this.state.date);
+    }
+  };
+
   render() {
     return (
-      <DatePickerIOS
-        date={new Date()}
-        mode={'date'}
-      />
+      <View>
+        <Text onPress={() => this.openPicker(true)} style={styles.label}>
+          {this.props.dateToStr(this.state.date)}
+        </Text>
+        <Modal animationType={'fade'}
+          transparent={true}
+          visible={this.state.modalVisible}
+          presentationStyle={'overFullScreen'}
+          onRequestClose={() => {this.openPicker(false)}}>
+          <TouchableWithoutFeedback onPress={() => this.openPicker(false)}>
+            <View style={styles.modal}>
+              <View style={styles.buttonContainer}>
+                <Button transparent style={{flex: 1}} onPress={() => this.openPicker(false)}>
+                  <Text style={{color: '#E74C3C', paddingLeft: 10, paddingRight: 10, fontSize: 18}}>Cancel</Text>
+                </Button>
+                <Button transparent
+                  style={{flex: 1, justifyContent: 'flex-end'}}
+                  onPress={() => this.openPicker(false, true)}>
+                  <Text style={{color: '#27AE60', paddingLeft: 10, paddingRight: 10, fontSize: 18}}>Select</Text>
+                </Button>
+              </View>
+              <DatePickerIOS
+                date={this.state.date}
+                mode={'date'}
+                style={{backgroundColor: '#FFFFFF'}}
+                onDateChange={(d) => this.setState({date: d})}/>
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
+      </View>
     );
   };
 };
@@ -78,9 +132,36 @@ class AndroidDatePicker extends Component {
 
   render() {
     return (
-      <Text onPress={this.openPicker} style={{flex: 1, width: '100%'}}>
+      <Text onPress={this.openPicker} style={styles.label}>
         {this.props.dateToStr(this.state.date)}
       </Text>
     );
   };
 };
+
+const styles = StyleSheet.create({
+  label: {
+    flex: 1,
+    width: '100%',
+    height: 40,
+    color: '#000000',
+    fontSize: 18,
+    paddingTop: 10,
+    marginTop: 5,
+  },
+  modal: {
+    height: '100%',
+    justifyContent: 'flex-end',
+    backgroundColor: '#00000044',
+  },
+  buttonContainer: {
+    height: 45,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    borderBottomWidth: 0.5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  }
+});

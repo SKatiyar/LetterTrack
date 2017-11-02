@@ -20,7 +20,13 @@ export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
 
+    this.editLetterOpened = false;
+    this.filtersOpened = false;
+    this.addLetterOpened = false;
+
     this.openEditLetter = this.openEditLetter.bind(this);
+    this.openFilters = this.openFilters.bind(this);
+    this.openAddLetter = this.openAddLetter.bind(this);
 
     this.state = {
       typeList: props.screenProps.typeList,
@@ -38,7 +44,33 @@ export default class HomeScreen extends Component {
   }
 
   openEditLetter(id) {
-    this.props.navigation.navigate('EditLetter', {id: id});
+    if (!this.editLetterOpened) {
+      this.props.navigation.navigate('EditLetter', {id: id});
+      this.editLetterOpened = true;
+      setTimeout(function() {
+        this.editLetterOpened = false;
+      }.bind(this), 1000);
+    }
+  };
+
+  openFilters() {
+    if (!this.filtersOpened) {
+      this.props.navigation.navigate('Filters');
+      this.filtersOpened = true;
+      setTimeout(function() {
+        this.filtersOpened = false;
+      }.bind(this), 1000);
+    }
+  };
+
+  openAddLetter() {
+    if (!this.addLetterOpened) {
+      this.props.navigation.navigate('AddLetter');
+      this.addLetterOpened = true;
+      setTimeout(function() {
+        this.addLetterOpened = false;
+      }.bind(this), 1000);
+    }
   };
 
   render() {
@@ -46,7 +78,7 @@ export default class HomeScreen extends Component {
       <Container>
         <HomeHeader
           onSelect={this.state.onListChanged}
-          onFilterSelect={() => this.props.navigation.navigate('Filters')}
+          onFilterSelect={() => this.openFilters()}
           selected={this.state.selected}
           list={this.state.typeList}
         />
@@ -60,7 +92,7 @@ export default class HomeScreen extends Component {
           direction="up"
           style={{backgroundColor: '#2C3E50'}}
           position="bottomRight"
-          onPress={() => this.props.navigation.navigate('AddLetter')}>
+          onPress={() => this.openAddLetter()}>
           <Icon name="md-add" />
         </Fab>
       </Container>
