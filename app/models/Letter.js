@@ -42,12 +42,14 @@ class Letter {
     vals && vals.sentTo && query.set('sentTo', vals.sentTo);
     vals && vals.sentOn && query.set('sentOn', vals.sentOn);
     vals && vals.subject && query.set('subject', vals.subject);
-    vals && vals.images && query.set('images', vals.images);
     vals && vals.replyBy && query.set('replyBy', vals.replyBy);
     vals && vals.state && query.set('state', vals.state);
 
     if (vals && vals.important !== undefined && vals.important !== null) {
       query.set('important', vals.important);
+    }
+    if (vals && vals.images !== undefined && vals.images !== null) {
+      query.set('images', vals.images);
     }
 
     query.where('letterId = ?', id);

@@ -122,10 +122,10 @@ export default class EditLetter extends Component {
     this.state.sentTo && (data.sentTo = this.state.sentTo);
     this.state.sentOn && (data.sentOn = this.state.sentOn);
     this.state.subject && (data.subject = this.state.subject);
-    this.state.images && (data.images = this.state.images);
     this.state.replyBy && (data.replyBy = this.state.replyBy);
     this.state.state && (data.state = this.state.state);
 
+    data.images = this.state.images ? this.state.images : '';
     data.important = this.state.important ? 1 : 0;
 
     this.props.screenProps.actions.onLetterUpdate(this.state.letterId, data).then(function() {
