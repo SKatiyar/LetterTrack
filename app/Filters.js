@@ -208,27 +208,31 @@ export default class Filters extends Component {
           <View style={styles.findDate}>
             <Text style={styles.label}>By Date</Text>
             <View style={styles.findDatePickerContainer}>
-              <DatePicker
-                style={styles.datePicker}
-                date={new Date((this.state.date.start ? this.state.date.start : Date.now()))}
-                onDateChange={(d) => this.setState({
-                  date: {
-                    start: d.getTime(),
-                    end: this.state.date.end,
-                    selected: this.state.date.selected
-                  }
-                })}/>
+              <View style={styles.datePicker}>
+                <DatePicker
+                  style={styles.dateLabel}
+                  date={new Date((this.state.date.start ? this.state.date.start : Date.now()))}
+                  onDateChange={(d) => this.setState({
+                    date: {
+                      start: d.getTime(),
+                      end: this.state.date.end,
+                      selected: this.state.date.selected
+                    }
+                  })}/>
+              </View>
               <Text style={styles.datePickerDevider}> - To - </Text>
-              <DatePicker
-                style={styles.datePicker}
-                date={new Date((this.state.date.end ? this.state.date.end : Date.now()))}
-                onDateChange={(d) => this.setState({
-                  date: {
-                    start: this.state.date.start,
-                    end: d.getTime(),
-                    selected: this.state.date.selected
-                  }
-                })}/>
+              <View style={styles.datePicker}>
+                <DatePicker
+                  style={styles.dateLabel}
+                  date={new Date((this.state.date.end ? this.state.date.end : Date.now()))}
+                  onDateChange={(d) => this.setState({
+                    date: {
+                      start: this.state.date.start,
+                      end: d.getTime(),
+                      selected: this.state.date.selected
+                    }
+                  })}/>
+              </View>
             </View>
             <View style={styles.checkboxList}>
               <View style={styles.checkboxListItem}>
@@ -479,17 +483,18 @@ const styles = StyleSheet.create({
   },
   findDatePickerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 15,
   },
   datePicker: {
     flex: 2,
-    padding: 5,
+    padding: 10,
     borderWidth: 1,
     borderRadius: 3,
     borderColor: '#00000055',
     backgroundColor: '#fff',
+    alignItems: 'center',
   },
   datePickerDevider: {
     flex: 1,
@@ -504,5 +509,9 @@ const styles = StyleSheet.create({
   },
   ascCheckBox: {
     marginLeft: 2
-  }
+  },
+  dateLabel: {
+    color: '#000000',
+    fontSize: 18,
+  },
 });

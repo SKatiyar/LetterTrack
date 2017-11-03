@@ -34,8 +34,8 @@ export default class DatePicker extends Component {
 
   render() {
     return Platform.select({
-      ios: () => <IOSDatePicker date={this.state.date} onDateChange={this.props.onDateChange} dateToStr={this.dateToStr} />,
-      android: () => <AndroidDatePicker date={this.state.date} onDateChange={this.props.onDateChange} dateToStr={this.dateToStr}/>,
+      ios: () => <IOSDatePicker style={this.props.style} date={this.state.date} onDateChange={this.props.onDateChange} dateToStr={this.dateToStr} />,
+      android: () => <AndroidDatePicker style={this.props.style} date={this.state.date} onDateChange={this.props.onDateChange} dateToStr={this.dateToStr}/>,
     })();
   };
 };
@@ -67,7 +67,7 @@ class IOSDatePicker extends Component {
   render() {
     return (
       <View>
-        <Text onPress={() => this.openPicker(true)} style={styles.label}>
+        <Text onPress={() => this.openPicker(true)} style={this.props.style}>
           {this.props.dateToStr(this.state.date)}
         </Text>
         <Modal animationType={'fade'}
@@ -132,7 +132,7 @@ class AndroidDatePicker extends Component {
 
   render() {
     return (
-      <Text onPress={this.openPicker} style={styles.label}>
+      <Text onPress={this.openPicker} style={this.props.style}>
         {this.props.dateToStr(this.state.date)}
       </Text>
     );
@@ -140,15 +140,6 @@ class AndroidDatePicker extends Component {
 };
 
 const styles = StyleSheet.create({
-  label: {
-    flex: 1,
-    width: '100%',
-    height: 40,
-    color: '#000000',
-    fontSize: 18,
-    paddingTop: 10,
-    marginTop: 5,
-  },
   modal: {
     height: '100%',
     justifyContent: 'flex-end',

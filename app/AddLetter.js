@@ -159,6 +159,7 @@ export default class AddLetter extends Component {
               Sent On
             </Text>
             <DatePicker
+              style={styles.dateLabel}
               date={new Date(this.state.sentOn)}
               onDateChange={(d) => this.setState({sentOn: d.getTime()})}/>
           </View>
@@ -166,6 +167,7 @@ export default class AddLetter extends Component {
           <View style={styles.dateView}>
             <Text style={styles.label}>Reply By</Text>
             <DatePicker
+              style={styles.dateLabel}
               date={new Date(this.state.replyBy)}
               onDateChange={(d) => this.setState({replyBy: d.getTime()})}/>
           </View>
@@ -290,5 +292,14 @@ const styles = StyleSheet.create({
     fontSize: 50,
     paddingBottom: 20,
     color: '#FFFFFF'
+  },
+  dateLabel: {
+    flex: 1,
+    width: '100%',
+    height: 40,
+    color: '#000000',
+    fontSize: 18,
+    paddingTop: 10,
+    marginTop: 5,
   },
 });
