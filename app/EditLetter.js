@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import {
+  CheckBox,
   Modal,
   Text,
   TextInput,
@@ -15,7 +16,6 @@ import {
   Content,
   Toast,
 } from 'native-base';
-import CheckBox from 'react-native-check-box';
 import Camera from 'react-native-camera';
 
 import LetterModel from './models/Letter';
@@ -226,16 +226,18 @@ export default class EditLetter extends Component {
             <View style={styles.inputImp}>
               <CheckBox
                 style={styles.checkBox}
-                isChecked={this.state.important}
-                onClick={() => this.setState({important: !this.state.important})}/>
+                value={this.state.important}
+                onValueChange={() => this.setState({important: !this.state.important})}/>
               <Text style={styles.checkBoxLabel}
                 onPress={() => this.setState({important: !this.state.important})}>Important</Text>
             </View>
             <View style={styles.inputImp}>
               <CheckBox
                 style={styles.checkBox}
-                isChecked={(this.state.state === 'closed')}
-                onClick={() => this.setState({state: (this.state.state === 'closed') ? 'pending' : 'closed'})}/>
+                value={(this.state.state === 'closed')}
+                onValueChange={() => this.setState({
+                  state: (this.state.state === 'closed') ? 'pending' : 'closed'
+                })}/>
               <Text style={styles.checkBoxLabel}
                 onPress={() => this.setState({state: (this.state.state === 'closed') ? 'pending' : 'closed'})}>
                 Closed
@@ -323,7 +325,6 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     marginRight: 5,
-    marginTop: 3,
   },
   checkBoxLabel: {
     fontSize: 20,

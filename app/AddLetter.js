@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import {
+  CheckBox,
   Modal,
   Text,
   TextInput,
@@ -15,7 +16,6 @@ import {
   Icon,
   Toast
 } from 'native-base';
-import CheckBox from 'react-native-check-box';
 import Camera from 'react-native-camera';
 
 import { ModalHeader } from './Headers';
@@ -191,8 +191,8 @@ export default class AddLetter extends Component {
           <View style={styles.inputImp}>
             <CheckBox
               style={styles.checkBox}
-              isChecked={this.state.important}
-              onClick={() => this.setState({important: !this.state.important})}/>
+              value={this.state.important}
+              onValueChange={() => this.setState({important: !this.state.important})}/>
             <Text style={styles.checkBoxLabel}
               onPress={() => this.setState({important: !this.state.important})}>Important</Text>
           </View>
@@ -267,7 +267,6 @@ const styles = StyleSheet.create({
   },
   checkBox: {
     marginRight: 5,
-    marginTop: 3,
   },
   checkBoxLabel: {
     fontSize: 20,

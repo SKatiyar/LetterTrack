@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import {
+  CheckBox,
   Text,
   TextInput,
   StyleSheet,
@@ -18,7 +19,6 @@ import {
   RadioButtonInput,
   RadioButtonLabel
 } from 'react-native-simple-radio-button';
-import CheckBox from 'react-native-check-box';
 
 import { ModalHeader } from './Headers';
 
@@ -161,8 +161,8 @@ export default class Filters extends Component {
               <View style={styles.checkboxListItem}>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.word.selected.indexOf('serialNo') !== -1)}
-                    onClick={() => this.wordboxClick('serialNo')}/>
+                    value={(this.state.word.selected.indexOf('serialNo') !== -1)}
+                    onValueChange={() => this.wordboxClick('serialNo')}/>
                   <Text
                     onPress={() => this.wordboxClick('serialNo')}
                     style={styles.checkboxLabel}>
@@ -171,8 +171,8 @@ export default class Filters extends Component {
                 </View>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.word.selected.indexOf('counterNo') !== -1)}
-                    onClick={() => this.wordboxClick('counterNo')}/>
+                    value={(this.state.word.selected.indexOf('counterNo') !== -1)}
+                    onValueChange={() => this.wordboxClick('counterNo')}/>
                   <Text
                     onPress={() => this.wordboxClick('counterNo')}
                     style={styles.checkboxLabel}>
@@ -183,8 +183,8 @@ export default class Filters extends Component {
               <View style={styles.checkboxListItem}>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.word.selected.indexOf('subject') !== -1)}
-                    onClick={() => this.wordboxClick('subject')}/>
+                    value={(this.state.word.selected.indexOf('subject') !== -1)}
+                    onValueChange={() => this.wordboxClick('subject')}/>
                   <Text
                     onPress={() => this.wordboxClick('subject')}
                     style={styles.checkboxLabel}>
@@ -193,8 +193,8 @@ export default class Filters extends Component {
                 </View>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.word.selected.indexOf('sentTo') !== -1)}
-                    onClick={() => this.wordboxClick('sentTo')}/>
+                    value={(this.state.word.selected.indexOf('sentTo') !== -1)}
+                    onValueChange={() => this.wordboxClick('sentTo')}/>
                   <Text
                     onPress={() => this.wordboxClick('sentTo')}
                     style={styles.checkboxLabel}>
@@ -238,8 +238,8 @@ export default class Filters extends Component {
               <View style={styles.checkboxListItem}>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.date.selected.indexOf('sentOn') !== -1)}
-                    onClick={() => this.dateBoxClick('sentOn')}/>
+                    value={(this.state.date.selected.indexOf('sentOn') !== -1)}
+                    onValueChange={() => this.dateBoxClick('sentOn')}/>
                   <Text
                     onPress={() => this.dateBoxClick('sentOn')}
                     style={styles.checkboxLabel}>
@@ -248,8 +248,8 @@ export default class Filters extends Component {
                 </View>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.date.selected.indexOf('replyBy') !== -1)}
-                    onClick={() => this.dateBoxClick('replyBy')}/>
+                    value={(this.state.date.selected.indexOf('replyBy') !== -1)}
+                    onValueChange={() => this.dateBoxClick('replyBy')}/>
                   <Text
                     onPress={() => this.dateBoxClick('replyBy')}
                     style={styles.checkboxLabel}>
@@ -260,8 +260,8 @@ export default class Filters extends Component {
               <View style={styles.checkboxListItem}>
                 <View style={styles.inputImp}>
                   <CheckBox
-                    isChecked={(this.state.date.selected.indexOf('updatedAt') !== -1)}
-                    onClick={() => this.dateBoxClick('updatedAt')}/>
+                    value={(this.state.date.selected.indexOf('updatedAt') !== -1)}
+                    onValueChange={() => this.dateBoxClick('updatedAt')}/>
                   <Text
                     onPress={() => this.dateBoxClick('updatedAt')}
                     style={styles.checkboxLabel}>
@@ -335,8 +335,8 @@ export default class Filters extends Component {
             <View style={styles.sortOrderButton}>
               <CheckBox
                 style={styles.ascCheckBox}
-                isChecked={this.state.sort.asc}
-                onClick={() => this.setState({sort: {by: this.state.sort.by, asc: !this.state.sort.asc}})}/>
+                value={this.state.sort.asc}
+                onValueChange={() => this.setState({sort: {by: this.state.sort.by, asc: !this.state.sort.asc}})}/>
               <Text
                 onPress={() => this.setState({sort: {by: this.state.sort.by, asc: !this.state.sort.asc}})}
                 style={styles.checkboxLabel}>
@@ -405,6 +405,7 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     fontSize: 18,
     marginLeft: 7,
+    marginTop: 3,
   },
   inputImp: {
     flexDirection:'row',
@@ -453,7 +454,7 @@ const styles = StyleSheet.create({
     borderColor: '#000',
   },
   findDate: {
-    height: 200,
+    height: 210,
     backgroundColor: '#FFFFFF',
     padding: 5,
   },
